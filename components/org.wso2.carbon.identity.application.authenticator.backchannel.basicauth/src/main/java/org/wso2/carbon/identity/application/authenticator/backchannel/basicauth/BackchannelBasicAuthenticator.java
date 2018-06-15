@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ * Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
  * WSO2 Inc. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -89,7 +89,6 @@ public class BackchannelBasicAuthenticator extends BasicAuthenticator {
             context.setProperties(authProperties);
         }
 
-
         SignedJWT signedJWT = getSignedJWT(authToken);
         ReadOnlyJWTClaimsSet claimsSet = getClaimSet(signedJWT);
 
@@ -107,7 +106,7 @@ public class BackchannelBasicAuthenticator extends BasicAuthenticator {
                     context.setRememberMe(true);
                 }
             } else {
-                throw new AuthenticationFailedException("User authentication failed : Invalid signature");
+                throw new AuthenticationFailedException("User authentication failed : Invalid signature.");
             }
 
         } else {
@@ -177,7 +176,7 @@ public class BackchannelBasicAuthenticator extends BasicAuthenticator {
 
         if (StringUtils.isEmpty(claimsSet.getSubject()) || StringUtils.isEmpty(claimsSet.getIssuer())
                 || StringUtils.isEmpty(claimsSet.getJWTID()) || claimsSet.getExpirationTime() == null) {
-            throw new AuthenticationFailedException("Invalid token : Required fileds are not present in the token");
+            throw new AuthenticationFailedException("Invalid token : Required fields are not present in the token.");
         }
 
         if (AuthJwtCache.getInstance().getValueFromCache(claimsSet.getJWTID()) != null) {
