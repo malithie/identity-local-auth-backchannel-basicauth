@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+  ~ Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
   ~
   ~ WSO2 Inc. licenses this file to you under the Apache License,
   ~ Version 2.0 (the "License"); you may not use this file except
   ~ in compliance with the License.
   ~ You may obtain a copy of the License at
   ~
-  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~  http://www.apache.org/licenses/LICENSE-2.0
   ~
   ~ Unless required by applicable law or agreed to in writing,
   ~ software distributed under the License is distributed on an
@@ -94,15 +94,25 @@
             </dependency>
 
             <dependency>
-                <groupId>org.wso2.carbon.analytics-common</groupId>
-                <artifactId>org.wso2.carbon.event.stream.core</artifactId>
-                <version>${carbon.analytics-common.version}</version>
+                <groupId>org.wso2.carbon.identity.application.auth.basic</groupId>
+                <artifactId>org.wso2.carbon.identity.application.authenticator.basicauth</artifactId>
+                <version>${carbon.identity.application.auth.basic.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.wso2.carbon.identity.application.auth.basic</groupId>
-                <artifactId>org.wso2.carbon.identity.application.authenticator.basicauth</artifactId>
-                <version>basic.auth.authenticator.version</version>
+                <groupId>org.wso2.orbit.com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${nimbusds.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.minidev</groupId>
+                <artifactId>json-smart</artifactId>
+                <version>${json-smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.json-simple.wso2</groupId>
+                <artifactId>json-simple</artifactId>
+                <version>${json-simple.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -260,8 +270,6 @@
 
     <properties>
         <!-- Identity Local Auth BasicAuth version -->
-        <identity.application.auth.backchannel.basicauth.exp.pkg.version>${project.version}
-        </identity.application.auth.backchannel.basicauth.exp.pkg.version>
         <identity.application.auth.backchannel.basicauth.imp.pkg.version.range>[1.0.0, 2.0.0)
         </identity.application.auth.backchannel.basicauth.imp.pkg.version.range>
 
@@ -275,9 +283,9 @@
         <carbon.identity.framework.imp.pkg.version.range>[5.7.0, 6.0.0)
         </carbon.identity.framework.imp.pkg.version.range>
 
-        <!-- Carbon Analytics version -->
-        <carbon.analytics-common.version>5.0.11</carbon.analytics-common.version>
-        <carbon.analytics-common.imp.pkg.version.range>[5.0.0,6.0.0)</carbon.analytics-common.imp.pkg.version.range>
+        <carbon.identity.application.auth.basic.version>5.3.0</carbon.identity.application.auth.basic.version>
+        <carbon.identity.application.auth.basic.imp.pkg.version.range>[5.3.0, 6.0.0)
+        </carbon.identity.application.auth.basic.imp.pkg.version.range>
 
         <osgi.framework.imp.pkg.version.range>[1.7.0, 2.0.0)</osgi.framework.imp.pkg.version.range>
         <osgi.service.component.imp.pkg.version.range>[1.2.0, 2.0.0)</osgi.service.component.imp.pkg.version.range>
@@ -287,12 +295,16 @@
         <commons-logging.osgi.version.range>[1.2,2.0)</commons-logging.osgi.version.range>
         <commons-lang.wso2.osgi.version.range>[2.6.0,3.0.0)</commons-lang.wso2.osgi.version.range>
 
-        <!-- Maven plugin version -->
-        <carbon.p2.plugin.version>1.5.3</carbon.p2.plugin.version>
-        <maven.buildnumber.plugin.version>1.4</maven.buildnumber.plugin.version>
+        <nimbusds.version>5.8.0.wso2v1</nimbusds.version>
+        <nimbusds.imp.pkg.version.range>[5.8.0,6.0.0)</nimbusds.imp.pkg.version.range>
         <json-simple.version>1.1.wso2v1</json-simple.version>
         <json-smart.version>1.3</json-smart.version>
         <basic.auth.authenticator.version>5.3.0</basic.auth.authenticator.version>
+
+        <!-- Maven plugin version -->
+        <carbon.p2.plugin.version>1.5.3</carbon.p2.plugin.version>
+        <maven.buildnumber.plugin.version>1.4</maven.buildnumber.plugin.version>
+
     </properties>
 
 </project>

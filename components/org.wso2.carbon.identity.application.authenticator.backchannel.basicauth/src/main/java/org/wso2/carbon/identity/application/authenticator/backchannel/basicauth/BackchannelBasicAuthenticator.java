@@ -6,7 +6,7 @@
  * in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *  http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -18,10 +18,10 @@
 package org.wso2.carbon.identity.application.authenticator.backchannel.basicauth;
 
 import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.JWSVerifier;
-import com.nimbusds.jose.ReadOnlyJWSHeader;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
-import com.nimbusds.jwt.ReadOnlyJWTClaimsSet;
+import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -32,12 +32,11 @@ import org.wso2.carbon.identity.application.authentication.framework.context.Aut
 import org.wso2.carbon.identity.application.authentication.framework.exception.AuthenticationFailedException;
 import org.wso2.carbon.identity.application.authentication.framework.model.AuthenticatedUser;
 import org.wso2.carbon.identity.application.authenticator.backchannel.basicauth.cache.AuthJwtCache;
-import org.wso2.carbon.identity.application.authenticator.backchannel.basicauth.internal.BasicAuthenticatorServiceComponent;
+import org.wso2.carbon.identity.application.authenticator.backchannel.basicauth.internal
+        .BasicAuthenticatorServiceComponent;
 import org.wso2.carbon.identity.application.authenticator.basicauth.BasicAuthenticator;
 import org.wso2.carbon.identity.application.common.model.User;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.PublicKey;
@@ -47,6 +46,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
@@ -90,7 +91,7 @@ public class BackchannelBasicAuthenticator extends BasicAuthenticator {
         }
 
         SignedJWT signedJWT = getSignedJWT(authToken);
-        ReadOnlyJWTClaimsSet claimsSet = getClaimSet(signedJWT);
+        JWTClaimsSet claimsSet = getClaimSet(signedJWT);
 
         if (isValidClaimSet(claimsSet)) {
             String username = claimsSet.getSubject();
@@ -147,9 +148,9 @@ public class BackchannelBasicAuthenticator extends BasicAuthenticator {
         return signedJWT;
     }
 
-    private ReadOnlyJWTClaimsSet getClaimSet(SignedJWT signedJWT) throws AuthenticationFailedException {
+    private JWTClaimsSet getClaimSet(SignedJWT signedJWT) throws AuthenticationFailedException {
 
-        ReadOnlyJWTClaimsSet claimsSet;
+        JWTClaimsSet claimsSet;
         String errorMessage;
         if (signedJWT == null) {
             errorMessage = "No Valid Assertion was found";
@@ -172,7 +173,7 @@ public class BackchannelBasicAuthenticator extends BasicAuthenticator {
         return claimsSet;
     }
 
-    boolean isValidClaimSet(ReadOnlyJWTClaimsSet claimsSet) throws AuthenticationFailedException {
+    boolean isValidClaimSet(JWTClaimsSet claimsSet) throws AuthenticationFailedException {
 
         if (StringUtils.isEmpty(claimsSet.getSubject()) || StringUtils.isEmpty(claimsSet.getIssuer())
                 || StringUtils.isEmpty(claimsSet.getJWTID()) || claimsSet.getExpirationTime() == null) {
@@ -206,7 +207,7 @@ public class BackchannelBasicAuthenticator extends BasicAuthenticator {
             throws JOSEException, AuthenticationFailedException {
 
         JWSVerifier verifier;
-        ReadOnlyJWSHeader header = signedJWT.getHeader();
+        JWSHeader header = signedJWT.getHeader();
         if (x509Certificate == null) {
             throw new AuthenticationFailedException("Unable to locate certificate for JWT " + header.toString());
         }
